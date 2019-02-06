@@ -29,6 +29,29 @@ const update = data => {
   const treeData = tree(rootNode);
   console.log(treeData.descendants());
 
+  // get link selection and join data
+  const links = graph.selectAll(".link").data(treeData.links());
+
+  // console.log(treeData.links());
+
+  // enter new links
+  links
+    .enter()
+    .append("path")
+    .transition()
+    .duration(100)
+    .attr("class", "link")
+    .attr("fill", "none")
+    .attr("stroke", "#aaa")
+    .attr("stroke-width", 2)
+    .attr(
+      "d",
+      d3
+        .linkVertical()
+        .x(d => d.x)
+        .y(d => d.y)
+    );
+
   // get nodes selection and join data
   const nodes = graph.selectAll(".node").data(treeData.descendants());
   // console.log(nodes);
